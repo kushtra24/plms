@@ -8353,4 +8353,16 @@ button.close {
 .mandatory {
   border-color: orange;
 }
+.setting {
+  visibility: hidden;
+}
 
+.testing-table:hover .setting{
+     visibility: visible;
+  }
+
+.patients-overview{
+  background-color: white;
+  overflow: hidden;
+  padding: 18px;
+}

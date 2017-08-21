@@ -16,11 +16,42 @@ class patientsController extends Controller
     	return view('patients.index', compact('patients'));
     }
 
-    public function show() {
-    	return view('patients.show');
+    public function show($patientId) {
+        $patient = Patient::find($patientId);
+
+    	return view('patients.show', compact('patient'));
     }
 
+    public function edit($patientId) {
 
+        $patient = Patient::find($patientId);
+
+        $patient->FileNo = request('fileNo');
+        $patient->InstitutionId = request('institutionId');
+        $patient->LastName = request('lastName');
+        $patient->FirstName = request('firstName');
+        $patient->BirthDate = request('birthDate');
+        $patient->Gender = request('gender', 2);
+        $patient->City = request('city');
+        $patient->Address = request('address');
+        $patient->province = request('province');
+        $patient->ZipCode = request('zipCode', 50);
+        $patient->Telephone = request('telephone');
+        $patient->ParentLastName = request('parentLastName');
+        $patient->ParentFirstName = request('parentFirstName');
+        $patient->PartentRelationship = request('partentRelationship', 50);
+        $patient->DistanceToCenterKm = request('distanceToCenterKm');
+        $patient->SiblingsNr = request('siblingsNr');
+        $patient->FathersOccupation = request('fathersOccupation');
+        $patient->MothersOccupation = request('mothersOccupation');
+        $patient->AnnualIncome = request('annualIncome');
+        $patient->EnteredBy = request('enteredBy');
+        $patient->modifiedBy = request('modifiedBy');
+        
+        $patient->save();
+
+        return view('patients.show', compact('patient'));
+    }
 
     public function create() {
 
@@ -33,7 +64,6 @@ class patientsController extends Controller
     public function store()
     {
     	$storePatient = new Patient;
-
     	$storePatient->FileNo = request('fileNo');
     	$storePatient->InstitutionId = request('institutionId');
         $storePatient->LastName = request('lastName');
