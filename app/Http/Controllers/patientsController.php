@@ -9,6 +9,7 @@ use App\Patient;
 class patientsController extends Controller
 {
 
+
     public function index() {
 
     	$patients = Patient::all();
@@ -16,11 +17,13 @@ class patientsController extends Controller
     	return view('patients.index', compact('patients'));
     }
 
+
     public function show($patientId) {
         $patient = Patient::find($patientId);
 
     	return view('patients.show', compact('patient'));
     }
+
 
     public function edit($patientId) {
 
@@ -53,12 +56,16 @@ class patientsController extends Controller
         return view('patients.show', compact('patient'));
     }
 
+
+
     public function create() {
 
        			 // $users = Patients::all(); // use a variable you want. for ex. $users from the model/user table on the databse, (see file: how to create a new crud), and the query/function you want to use. in this case show all from the table User.
 
     	return view('patients.create');
     }
+
+
 
 
     public function store()

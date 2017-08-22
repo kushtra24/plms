@@ -159,7 +159,7 @@ h4 {
                     <th>Patient Surname</th>
                     <th>Gender</th>
                     <th>Age</th>
-                    <th>Endable/Desable</th>
+                    <th>Disable/Enable</th>
                   </tr>
               </thead>
                 <tr class="testing-table">
@@ -178,7 +178,7 @@ h4 {
                   <td>
                   <form action="">
                     <input class="tgl tgl-light" id="cb1" type="checkbox"/>
-                    <label class="tgl-btn" for="cb1"></label></td>
+                    <label class="tgl-btn" for="cb1"></label>
                   </form>
                 </tr>
             </table>
