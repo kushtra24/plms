@@ -114,6 +114,24 @@ class patientsController extends Controller
 
         return redirect('/patients');
     }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
+            $patients = Patient::find($id);
+
+            $patients->delete();
+
+            return back();
+    }
+
+
 }// class end
 
 

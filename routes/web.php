@@ -26,6 +26,7 @@ Route::post('/patients', 'patientsController@store');
 Route::get('/patients/edit/{id}', 'patientsController@edit');
 Route::post('/patients/edit/{id}', 'patientsController@update');
 Route::get('/patients/show/{id}', 'patientsController@show');
+Route::post('/patients/{id}', 'patientsController@destroy');
 
 
 

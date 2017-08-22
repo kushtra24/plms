@@ -26,7 +26,12 @@
                             <div class="setting">
                             <a class="btn btn-success btn-xs" href="{{ action('patientsController@show', ['id' => $patient->id]) }}" role="button">View</a>
                             <a class="btn btn-warning btn-xs" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Edit</a>
-                            <a class="btn btn-danger btn-xs" href="#" role="button">Delete</a>
+                <div class="display-inline" style="display: inline-block;">
+                    <form method="POST" action="patients/{{ $patient->id }}">
+                          {{ csrf_field() }}
+                          <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                    </form>
+                </div>
                             </div>
                           </td>
                           <td>{{ $patient->LastName }}</td>
