@@ -21,13 +21,31 @@ class patientsController extends Controller
     public function show($patientId) {
         $patient = Patient::find($patientId);
 
-    	return view('patients.show', compact('patient'));
+        $next = Patient::where('id', '>', $patientId)->min('id');
+        $prev = Patient::where('id', '<', $patientId)->max('id');
+
+    	return view('patients.show', compact('patient', 'next', 'prev'));
     }
 
 
     public function edit($patientId) {
-
+        
         $patient = Patient::find($patientId);
+
+        return view('patients.edit', compact('patient'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $patient, $id)
+    {
+
+        $patient = Patient::find($id);
 
         $patient->FileNo = request('fileNo');
         $patient->InstitutionId = request('institutionId');
@@ -57,20 +75,19 @@ class patientsController extends Controller
     }
 
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create() {
-
-       			 // $users = Patients::all(); // use a variable you want. for ex. $users from the model/user table on the databse, (see file: how to create a new crud), and the query/function you want to use. in this case show all from the table User.
 
     	return view('patients.create');
     }
 
-
-
-
-    public function store()
-    {
+    public function store(){
     	$storePatient = new Patient;
+
     	$storePatient->FileNo = request('fileNo');
     	$storePatient->InstitutionId = request('institutionId');
         $storePatient->LastName = request('lastName');

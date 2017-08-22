@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
         <h1>Patient List</h1>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
+                  <div class="table-responsive patients-overview">
+                    <table class="table table-hover table-striped">
                       <thead class="thead-inverse">
                           <tr>
+                            <th>Unique ID</th>
                             <th>Patient Id</th>
                             <th>File No</th>
                             <th>Patient Name</th>
@@ -19,12 +19,13 @@
                       </thead>
                       @foreach ($patients as $patient)
                         <tr class="testing-table">
+                          <td>{{ $patient->id }}</td>
                           <td>{{ $patient->FileNo }}</td>
                           <td>{{ $patient->InstitutionId }}</td>
                           <td>{{ $patient->FirstName }}
                             <div class="setting">
                             <a class="btn btn-success btn-xs" href="{{ action('patientsController@show', ['id' => $patient->id]) }}" role="button">View</a>
-                            <a class="btn btn-warning btn-xs" href="#" role="button">Edit</a>
+                            <a class="btn btn-warning btn-xs" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Edit</a>
                             <a class="btn btn-danger btn-xs" href="#" role="button">Delete</a>
                             </div>
                           </td>
@@ -35,7 +36,6 @@
                         @endforeach
                     </table>
                   </div>
-        </div>
     </div>
 </div>
 @endsection

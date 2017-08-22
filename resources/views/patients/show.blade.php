@@ -99,9 +99,13 @@ h4 {
        <h1>Patients details</h1>
 
         <div class="patients-overview">
-          <a class="btn btn-default pull-right" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button"> Next</a>
-          <a class="btn btn-default pull-right" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Previous </a>
-          <a class="btn btn-default" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Back</a>
+        @if(isset($next) AND $next != null AND $next != 0)
+          <a class="btn btn-default pull-right" href="/patients/show/{{$next}}" role="button"> Next</a>
+        @endif
+        @if(isset($prev) && $prev != null && $prev != 0)
+          <a class="btn btn-default pull-right" href="/patients/show/{{$prev}}" role="button">Previous </a>
+        @endif
+          <button class="btn btn-default"  role="button" onclick="window.history.back()">Back</button>
         </div>
 <hr>
         <div class="patients-overview">
@@ -111,9 +115,9 @@ h4 {
           <div class="col-md-8 col-sm-8 col-xs-12">
             <h2><strong>{{ $patient->FirstName }} {{ $patient->LastName }}</strong></h2>
             <h4>{{ $patient->Gender == 'F' ? 'Female' : 'Male' }}, {{ $patient->age }} years old</h4>
-            <h4><strong>File No:</strong> {{ $patient->FileNo }}</h4>
+            <h4><i class="glyphicon glyphicon-edit"></i> <strong>File No:</strong> {{ $patient->FileNo }}</h4>
             <hr>
-            <h4><strong>Institution Id:</strong> {{ $patient->InstitutionId }}</h4>
+            <h4> <i class="glyphicon glyphicon-paperclip"></i> <strong>Institution Id:</strong> {{ $patient->InstitutionId }}</h4>
           </div><!-- col-md-8 -->
           <div class="col-md-2 col-xs-12">
             <a class="btn btn-warning pull-right" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Edit</a>
@@ -123,18 +127,18 @@ h4 {
         <div class="patients-overview">
                <div class="col-md-6">
                  <h3>Contact: </h3>
-                 <p> <strong>Telephone </strong>{{ $patient->Telephone }} </p>
-                 <p> <strong>Address: </strong><br>
+                 <p><i class="glyphicon glyphicon-earphone"></i> <strong>Telephone </strong>{{ $patient->Telephone }} </p>
+                 <p> <i class="glyphicon glyphicon-home"></i> <strong>Address: </strong><br>
                  {{ $patient->Address }} <br>
                  {{ $patient->City }} {{ $patient->ZipCode }}<br>
                  {{ $patient->province }}<br>
                  <hr>
                  <h3>Other: </h3>
-                 <p> <i class="glyphicon glyphicon-leaf"> </i><strong> Borth date: </strong> {{ $patient->BirthDate }} </p>
-                 <p> <strong>Distance To Center Km: </strong>{{ $patient->DistanceToCenterKm }} </p>
-                 <p> <strong>Number of Siblings: </strong>{{ $patient->SiblingsNr }} </p>
-                 <p> <strong>Entered By </strong>{{ $patient->EnteredBy }} </p>
-                 <p> <strong>Modified By </strong>{{ $patient->modifiedBy }} </p>
+                 <p> <i class="glyphicon glyphicon-leaf"> </i> <strong> Borth date: </strong> {{ $patient->BirthDate }} </p>
+                 <p> <i class="glyphicon glyphicon-road"></i> <strong>Distance To Center Km: </strong>{{ $patient->DistanceToCenterKm }} </p>
+                 <p> <i class="glyphicon glyphicon-user"></i> <strong>Number of Siblings: </strong>{{ $patient->SiblingsNr }} </p>
+                 <p> <i class="glyphicon glyphicon-asterisk"></i> <strong>Entered By </strong>{{ $patient->EnteredBy }} </p>
+                 <p> <i class="glyphicon glyphicon-wrench"></i> <strong>Modified By </strong>{{ $patient->modifiedBy }} </p>
                  </p>
                </div>
                <div class="col-md-6">
