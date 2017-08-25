@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Patient;
+use App\Http\Requests\PatientsRequest;
+use Illuminate\Support\Facades\Input;
 
 class patientsController extends Controller
 {
 
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index() {
 
     	$patients = Patient::all();
@@ -18,6 +24,12 @@ class patientsController extends Controller
     }
 
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($patientId) {
         $patient = Patient::find($patientId);
 
@@ -28,6 +40,12 @@ class patientsController extends Controller
     }
 
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($patientId) {
         
         $patient = Patient::find($patientId);
@@ -42,33 +60,33 @@ class patientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $patient, $id)
+    public function update(PatientsRequest $request, $id)
     {
 
+        //Updating the fields to the database based on the id
         $patient = Patient::find($id);
 
-        $patient->FileNo = request('fileNo');
-        $patient->InstitutionId = request('institutionId');
-        $patient->LastName = request('lastName');
-        $patient->FirstName = request('firstName');
-        $patient->BirthDate = request('birthDate');
-        $patient->Gender = request('gender', 2);
-        $patient->City = request('city');
-        $patient->Address = request('address');
-        $patient->province = request('province');
-        $patient->ZipCode = request('zipCode', 50);
-        $patient->Telephone = request('telephone');
-        $patient->ParentLastName = request('parentLastName');
-        $patient->ParentFirstName = request('parentFirstName');
-        $patient->PartentRelationship = request('partentRelationship', 50);
-        $patient->DistanceToCenterKm = request('distanceToCenterKm');
-        $patient->SiblingsNr = request('siblingsNr');
-        $patient->FathersOccupation = request('fathersOccupation');
-        $patient->MothersOccupation = request('mothersOccupation');
-        $patient->AnnualIncome = request('annualIncome');
-        $patient->EnteredBy = request('enteredBy');
-        $patient->modifiedBy = request('modifiedBy');
-        
+        $patient->FileNo = $request['fileNo'];
+        $patient->InstitutionId = $request['institutionId'];
+        $patient->LastName = $request['lastName'];
+        $patient->FirstName = $request['firstName'];
+        $patient->BirthDate = $request['birthDate'];
+        $patient->Gender = $request['gender'];
+        $patient->City = $request['city'];
+        $patient->Address = $request['address'];
+        $patient->Province = $request['province'];
+        $patient->ZipCode = $request['zipCode'];
+        $patient->Telephone = $request['telephone'];
+        $patient->ParentLastName = $request['parentLastName'];
+        $patient->ParentFirstName = $request['parentFirstName'];
+        $patient->PartentRelationship = $request['partentRelationship'];
+        $patient->DistanceToCenterKm = $request['distanceToCenterKm'];
+        $patient->SiblingsNr = $request['siblingsNr'];
+        $patient->FathersOccupation = $request['fathersOccupation'];
+        $patient->MothersOccupation = $request['mothersOccupation'];
+        $patient->AnnualIncome = $request['annualIncome'];
+        $patient->modifiedBy = $request['modifiedBy'];
+
         $patient->save();
 
         return view('patients.show', compact('patient'));
@@ -85,30 +103,48 @@ class patientsController extends Controller
     	return view('patients.create');
     }
 
-    public function store(){
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(PatientsRequest $request){
+          
+
+         // adding the form of the fields, to the database
+
     	$storePatient = new Patient;
 
-    	$storePatient->FileNo = request('fileNo');
-    	$storePatient->InstitutionId = request('institutionId');
-        $storePatient->LastName = request('lastName');
-        $storePatient->FirstName = request('firstName');
-        $storePatient->BirthDate = request('birthDate');
-        $storePatient->Gender = request('gender', 2);
-        $storePatient->City = request('city');
-        $storePatient->Address = request('address');
-        $storePatient->Province = request('province');
-        $storePatient->ZipCode = request('zipCode', 50);
-        $storePatient->Telephone = request('telephone');
-        $storePatient->ParentLastName = request('parentLastName');
-        $storePatient->ParentFirstName = request('parentFirstName');
-        $storePatient->PartentRelationship = request('partentRelationship', 50);
-        $storePatient->DistanceToCenterKm = request('distanceToCenterKm');
-        $storePatient->SiblingsNr = request('siblingsNr');
-        $storePatient->FathersOccupation = request('fathersOccupation');
-        $storePatient->MothersOccupation = request('mothersOccupation');
-        $storePatient->AnnualIncome = request('annualIncome');
-        $storePatient->EnteredBy = request('enteredBy');
-        $storePatient->modifiedBy = request('modifiedBy');
+        $storePatient->FileNo = $request['fileNo'];
+    	$storePatient->PatientImage = $request['profilePhoto'];
+
+        if (Input::hasfile('image')) {
+            $file=Input::file('image');
+            $file->move(public_path(). '/', $file->getClientOriginalName());
+            $storePatient->patientImage = $file->getClientOriginalName();
+        }
+    	$storePatient->InstitutionId = $request['institutionId'];
+        $storePatient->LastName = $request['lastName'];
+        $storePatient->FirstName = $request['firstName'];
+        $storePatient->BirthDate = $request['birthDate'];
+        $storePatient->Gender = $request['gender'];
+        $storePatient->City = $request['city'];
+        $storePatient->Address = $request['address'];
+        $storePatient->Province = $request['province'];
+        $storePatient->ZipCode = $request['zipCode'];
+        $storePatient->Telephone = $request['telephone'];
+        $storePatient->ParentLastName = $request['parentLastName'];
+        $storePatient->ParentFirstName = $request['parentFirstName'];
+        $storePatient->PartentRelationship = $request['partentRelationship'];
+        $storePatient->DistanceToCenterKm = $request['distanceToCenterKm'];
+        $storePatient->SiblingsNr = $request['siblingsNr'];
+        $storePatient->FathersOccupation = $request['fathersOccupation'];
+        $storePatient->MothersOccupation = $request['mothersOccupation'];
+        $storePatient->AnnualIncome = $request['annualIncome'];
+        $storePatient->EnteredBy = $request['enteredBy'];
+        $storePatient->modifiedBy = $request['modifiedBy'];
 
         $storePatient->save();
 
@@ -123,7 +159,6 @@ class patientsController extends Controller
      */
     public function destroy($id)
     {
-
             $patients = Patient::find($id);
 
             $patients->delete();

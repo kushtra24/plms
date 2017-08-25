@@ -3,21 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row">
-       <h1>Patients details</h1>
+       <h1>Edit a Patients</h1>
 
  <form method="POST" action="/patients/edit/{{$patient->id}}" class="form-horizontal">
   {{ csrf_field() }}
         <div class="patients-overview">
-          <div class="col-md-2 col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-0">
-          <div class="thumbnail">
-            <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputFile">Change Picture</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">Plase submit jpg, png, </p>
-          </div>
-          </div>
+            <p style=" color: orange; text-align: right;"><strong>Notice: </strong>All Orange fields are mandatory</p>
+            <div class="col-md-3 col-sm-3 col-xs-6 col-xs-offset-3 col-sm-offset-0">
+                <div class="thumbnail patientImage">
+                    <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
+                    <label for="patientImage"><i class="glyphicon glyphicon-camera patientImage-upload" for="patientImage"></i></label>
+                    <input type="file" id="patientImage" name="patientImage" style="display: none;"><span id="filename"></span>
+                </div>
+            </div>
 
     <div class="col-md-8 col-sm-8 col-xs-12">
 
@@ -131,19 +129,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label"><i class="glyphicon glyphicon-asterisk"></i> Entered By</label>
-                      <div class="col-sm-9">
-                      <input type="text" class="form-control" name="enteredBy" id="EnteredBy" value="{{ $patient->EnteredBy }} " placeholder="Entered By">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label"><i class="glyphicon glyphicon-wrench"></i> Modified By</label>
-                      <div class="col-sm-9">
-                      <input type="text" class="form-control" name="modifiedBy" id="province" value="{{ $patient->modifiedBy }} " placeholder="Modified By">
-                      </div>
-                    </div>
+                    
 
                </div>
                <div class="col-md-6">
@@ -200,4 +186,13 @@
 </form>
 </div>
 </div>
+@endsection
+
+@section('javascriptSection')
+    <script>
+        $("input[id='patientImage']").change(function (e) {
+            var $this = $(this);
+            $this.next().html($this.val().split('\\').pop());
+        });
+    </script>
 @endsection

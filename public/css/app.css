@@ -8353,6 +8353,11 @@ button.close {
 .mandatory {
   border-color: orange;
 }
+
+.mandatory-label{
+  color: orange;
+}
+
 .setting {
   visibility: hidden;
 }
@@ -8366,3 +8371,19 @@ button.close {
   overflow: hidden;
   padding: 18px;
 }
+
+.patientImage-upload {
+  position: absolute;
+  top: 6px;
+  left: 21px;
+  font-size: 23px;
+  background-color: #ccc;
+  padding: 7px;
+  cursor: pointer;
+  display: none;
+}
+
+.patientImage:hover .patientImage-upload{
+  display: block;
+}
+

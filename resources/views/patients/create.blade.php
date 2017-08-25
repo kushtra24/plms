@@ -3,71 +3,70 @@
 @section('content')
 <div class="container">
     <div class="row">
-       <h1>Patients details</h1>
+       <h1 style="display: inline-block;">Add new Patient</h1>     
 
  <form method="POST" action="/patients" class="form-horizontal">
   {{ csrf_field() }}
-        <div class="patients-overview">
-          <div class="col-md-2 col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-0">
-          <div class="thumbnail">
-            <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputFile">Change Picture</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">Plase submit jpg, png, </p>
-          </div>
-          </div>
+     <div class="patients-overview">
+             <p style=" color: orange; text-align: right;"><strong>Notice: </strong>All Orange fields are mandatory</p>
+               <div class="col-md-3 col-sm-3 col-xs-6 col-xs-offset-3 col-sm-offset-0">
+                  <div class="thumbnail patientImage">
+                    <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
+                      <label for="patientImage"><i class="glyphicon glyphicon-camera patientImage-upload" for="patientImage"></i></label>
+                      <input type="file" id="patientImage" name="patientImage" style="display: none;"><span id="filename"></span>
+                  </div>
+               </div>
 
-    <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="col-md-8 col-sm-8 col-xs-12">
 
-    <div class="form-group">
-      <label for="FileNo" class="col-sm-3 control-label">Last Name</label>
-        <div class="col-sm-9">
+                <div class="form-group">
+                  <label for="FileNo" class="col-sm-3 control-label mandatory-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control mandatory" name="lastName" id="LastName" placeholder="Last Name">
+                    </div>
+                </div>
 
-      <input type="text" class="form-control" name="lastName" id="LastName" placeholder="Last Name">
-       </div>
-    </div>
+                <div class="form-group">
+                  <label for="FileNo" class="col-sm-3 control-label mandatory-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control mandatory" name="firstName" id="FirstName" placeholder="First name">
+                    </div>
+                </div>
 
-    <div class="form-group">
-      <label for="FileNo" class="col-sm-3 control-label">First Name</label>
-        <div class="col-sm-9">
-      <input type="text" class="form-control" name="firstName" id="FirstName" placeholder="First name">
-       </div>
-    </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-3 mandatory-label"> Gender</label>
+                   <div class="col-sm-9">
+                        <div class="form-check col-sm-6">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="F"> Female
+                          </label>
+                        </div>
 
-    <div class="form-group">
-      <label class="control-label col-sm-3"> Gender</label>
-      <div class="col-sm-9">
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="F"> Female
-          </label>
-        </div>
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="M" > Male
-          </label>
-        </div>
-      </div>
-    </div>
+                        <div class="form-check col-sm-6">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="M" > Male
+                            </label>
+                        </div>
+                  </div>
+                </div>{{--form-group--}}
 
-    <div class="form-group">
-      <label for="FileNo" class="col-sm-3 control-label">File No.</label>
-        <div class="col-sm-9">
-      <input type="number" class="form-control" name="fileNo" id="FileNo" placeholder="Patients File number">
-       </div>
-    </div>
-            <hr>
+                <div class="form-group">
+                  <label for="FileNo" class="col-sm-3 control-label mandatory-label">File No.</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control mandatory" name="fileNo" id="FileNo" placeholder="Patients File number">
+                   </div>
+                </div>{{--form-group--}}
 
-    <div class="form-group">
-      <label for="FileNo" class="col-sm-3 control-label">Institution Id:</label>
-      <div class="col-sm-9">
-      <input type="text" class="form-control" name="institutionId" id="InstitutionId" placeholder="Institution Id:">
-      </div>
-    </div>
-</div><!-- col-md-8 -->
-</div><!-- patients-overview -->
+                <hr>
+
+                <div class="form-group">
+                  <label for="FileNo" class="col-sm-3 control-label mandatory-label">Institution Id:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control mandatory" name="institutionId" id="InstitutionId" placeholder="Institution Id:">
+                  </div>
+                </div>{{--form-group--}}
+             </div><!-- col-md-8 -->
+    </div><!-- patients-overview -->
 <hr>
         <div class="patients-overview">
                <div class="col-md-6">
@@ -80,30 +79,30 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label"> <i class="glyphicon glyphicon-home"></i>  Address</label>
+                      <label for="FileNo" class="col-sm-3 control-label mandatory-label"> <i class="glyphicon glyphicon-home"></i>  Address</label>
                       <div class="col-sm-9">
-                      <input type="text" class="form-control" name="address" id="Address" placeholder="Address">
+                      <input type="text" class="form-control mandatory" name="address" id="Address" placeholder="Address">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label">City</label>
+                      <label for="FileNo" class="col-sm-3 control-label mandatory-label">City</label>
                       <div class="col-sm-9">
-                      <input type="text" class="form-control" name="city" id="City" placeholder="City">
+                      <input type="text" class="form-control mandatory" name="city" id="City" placeholder="City">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label">ZipCode</label>
+                      <label for="FileNo" class="col-sm-3 control-label ">ZipCode</label>
                       <div class="col-sm-9">
                       <input type="number" class="form-control" name="zipCode" id="ZipCode" placeholder="ZipCode">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label">Province</label>
+                      <label for="FileNo" class="col-sm-3 control-label mandatory-label">State / Province</label>
                       <div class="col-sm-9">
-                      <input type="text" class="form-control" name="province" id="Province" placeholder="Province">
+                      <input type="text" class="form-control mandatory" name="province" id="Province" placeholder="Province">
                       </div>
                     </div>
                  <hr>
@@ -111,14 +110,14 @@
                  <h3>Other: </h3>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label">  <i class="glyphicon glyphicon-leaf"> </i> Borth date: </label>
+                      <label for="FileNo" class="col-sm-3 control-label mandatory-label">  <i class="glyphicon glyphicon-leaf"> </i> Birth date: </label>
                       <div class="col-sm-9">
-                      <input type="date" class="form-control" name="birthDate" id="BirthDate" placeholder="Borth date:">
+                      <input type="date" class="form-control mandatory" name="birthDate" id="BirthDate" placeholder="Borth date:">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label for="FileNo" class="col-sm-3 control-label"><i class="glyphicon glyphicon-road"></i> Distance To Center Km:</label>
+                      <label for="FileNo" class="col-sm-3 control-label"><i class="glyphicon glyphicon-road"></i> Distance To Center (Km):</label>
                       <div class="col-sm-9">
                       <input type="number" class="form-control" name="distanceToCenterKm" id="DistanceToCenterKm" placeholder="Distance To Center Km:">
                       </div>
@@ -150,23 +149,23 @@
                  <h3>Parents Information:</h3>
 
                  <div class="form-group">
-                    <label for="FileNo" class="col-sm-3 control-label">Last Name</label>
+                    <label for="FileNo" class="col-sm-3 control-label mandatory-label">Last Name</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" name="province" id="province" placeholder="Last Name">
+                    <input type="text" class="form-control mandatory" name="parentLastName" id="province" placeholder="Last Name">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="FileNo" class="col-sm-3 control-label">First Name</label>
+                    <label for="FileNo" class="col-sm-3 control-label mandatory-label">First Name</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" name="parentFirstName" id="ParentFirstName" placeholder="First Name">
+                    <input type="text" class="form-control mandatory" name="parentFirstName" id="ParentFirstName" placeholder="First Name">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="FileNo" class="col-sm-3 control-label">Partent Relationship</label>
+                    <label for="FileNo" class="col-sm-3 control-label mandatory-label">Partent Relationship</label>
                     <div class="col-sm-9">
-                    <input type="text" class="form-control" name="partentRelationship" id="PartentRelationship" placeholder="Partent Relationship">
+                    <input type="text" class="form-control mandatory" name="partentRelationship" id="PartentRelationship" placeholder="Partent Relationship">
                     </div>
                   </div>
 
@@ -193,11 +192,32 @@
 
                </div>
                <div class="col-xs-12">
-                <button type="submit" class="btn btn-primary pull-right">Submit Change</button>
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
                </div>
         </div>
 
 </form>
+
+               @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 </div>
 </div>
+
 @endsection
+
+@section('javascriptSection')
+<script>
+    $("input[id='patientImage']").change(function (e) {
+        var $this = $(this);
+        $this.next().html($this.val().split('\\').pop());
+    });
+</script>
+@endsection
+

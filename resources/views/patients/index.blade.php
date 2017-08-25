@@ -9,10 +9,9 @@
                       <thead class="thead-inverse">
                           <tr>
                             <th>Unique ID</th>
-                            <th>Patient Id</th>
                             <th>File No</th>
-                            <th>Patient Name</th>
-                            <th>Patient Surname</th>
+                            <th>Institution ID</th>
+                            <th>Patient Name (Last, First name)</th>
                             <th>Gender</th>
                             <th>Age</th>
                           </tr>
@@ -22,7 +21,7 @@
                           <td>{{ $patient->id }}</td>
                           <td>{{ $patient->FileNo }}</td>
                           <td>{{ $patient->InstitutionId }}</td>
-                          <td>{{ $patient->FirstName }}
+                          <td>{{ $patient->LastName }} {{ $patient->FirstName }}
                             <div class="setting">
                             <a class="btn btn-success btn-xs" href="{{ action('patientsController@show', ['id' => $patient->id]) }}" role="button">View</a>
                             <a class="btn btn-warning btn-xs" href="{{ action('patientsController@edit', ['id' => $patient->id]) }}" role="button">Edit</a>
@@ -34,7 +33,6 @@
                 </div>
                             </div>
                           </td>
-                          <td>{{ $patient->LastName }}</td>
                           <td>{{ $patient->Gender == 'F' ? 'Female' : 'Male' }}</td>
                           <td>{{ $patient->age }} years</td>
                         </tr>
