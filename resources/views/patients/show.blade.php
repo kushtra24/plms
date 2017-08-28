@@ -99,18 +99,22 @@ h4 {
        <h1>Patients details</h1>
 
         <div class="patients-overview">
-        @if(isset($next) AND $next != null AND $next != 0)
-          <a class="btn btn-default pull-right" href="/patients/show/{{$next}}" role="button"> Next</a>
-        @endif
-        @if(isset($prev) && $prev != null && $prev != 0)
-          <a class="btn btn-default pull-right" href="/patients/show/{{$prev}}" role="button">Previous </a>
-        @endif
-          <button class="btn btn-default"  role="button" onclick="window.history.back()">Back</button>
+            @if(isset($next) AND $next != null AND $next != 0)
+              <a class="btn btn-default pull-right" href="/patients/show/{{$next}}" role="button"> Next</a>
+            @endif
+            @if(isset($prev) && $prev != null && $prev != 0)
+              <a class="btn btn-default pull-right" href="/patients/show/{{$prev}}" role="button">Previous </a>
+            @endif
+              <button class="btn btn-default"  role="button" onclick="window.history.back()">Back</button>
         </div>
 <hr>
         <div class="patients-overview">
           <div class="col-md-2 col-sm-2 col-xs-6 col-xs-offset-3 col-sm-offset-0 thumbnail">
-            <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
+            @if($patient->profilePhoto)
+                <img src="{{ asset('storage/' . $patient->profilePhoto)  }}" alt="avater">
+            @else
+                <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
+            @endif
           </div>
           <div class="col-md-8 col-sm-8 col-xs-12">
             <h2><strong>{{ $patient->FirstName }} {{ $patient->LastName }}</strong></h2>

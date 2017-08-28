@@ -5,15 +5,15 @@
     <div class="row">
        <h1 style="display: inline-block;">Add new Patient</h1>     
 
- <form method="POST" action="/patients" class="form-horizontal">
+ <form method="POST" action="/patients" class="form-horizontal" enctype="multipart/form-data" >
   {{ csrf_field() }}
      <div class="patients-overview">
              <p style=" color: orange; text-align: right;"><strong>Notice: </strong>All Orange fields are mandatory</p>
                <div class="col-md-3 col-sm-3 col-xs-6 col-xs-offset-3 col-sm-offset-0">
                   <div class="thumbnail patientImage">
-                    <img src="{{ asset('images/avatar-default.png') }}" alt="avater">
+                    <img src="{{ asset('images/avatar-default.png') }}"  id="imediateImage" alt="avater">
                       <label for="patientImage"><i class="glyphicon glyphicon-camera patientImage-upload" for="patientImage"></i></label>
-                      <input type="file" id="patientImage" name="patientImage" style="display: none;"><span id="filename"></span>
+                      <input type="file" id="patientImage" name="patientImage" style="display: none;" onchange="readURL(this);"><span id="filename"></span>
                   </div>
                </div>
 
@@ -218,6 +218,20 @@
         var $this = $(this);
         $this.next().html($this.val().split('\\').pop());
     });
+
+//Show image imediately
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imediateImage')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 @endsection
 

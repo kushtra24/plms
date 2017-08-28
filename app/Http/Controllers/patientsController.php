@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\Http\Requests\PatientsRequest;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\UploadedFile;
+use Carbon\Carbon;
+
 
 class patientsController extends Controller
 {
@@ -62,9 +65,15 @@ class patientsController extends Controller
      */
     public function update(PatientsRequest $request, $id)
     {
-
         //Updating the fields to the database based on the id
         $patient = Patient::find($id);
+
+        //image
+        if($request->hasFile('patientImage')){
+            $path = $request->patientImage->store('public/avatars','public');
+            $patient->profilePhoto = $path;
+            $patient->save();
+        }
 
         $patient->FileNo = $request['fileNo'];
         $patient->InstitutionId = $request['institutionId'];
@@ -111,20 +120,17 @@ class patientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PatientsRequest $request){
-          
-
+        
          // adding the form of the fields, to the database
 
     	$storePatient = new Patient;
 
-        $storePatient->FileNo = $request['fileNo'];
-    	$storePatient->PatientImage = $request['profilePhoto'];
-
-        if (Input::hasfile('image')) {
-            $file=Input::file('image');
-            $file->move(public_path(). '/', $file->getClientOriginalName());
-            $storePatient->patientImage = $file->getClientOriginalName();
+        if($request->hasFile('patientImage')){
+            $path = $request->patientImage->store('public/avatars','public');
+            $storePatient->profilePhoto = $path;
         }
+
+        $storePatient->FileNo = $request->input('fileNo');
     	$storePatient->InstitutionId = $request['institutionId'];
         $storePatient->LastName = $request['lastName'];
         $storePatient->FirstName = $request['firstName'];
